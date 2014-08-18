@@ -5,35 +5,40 @@ path = "../rally/doc/samples/tasks/scenarios"
 default_flavor = "m1.tiny"
 default_image = "cirros"
 
+# Find the benchmarks
 puts "Finding benchmarks in #{path} ..."
 array_of_all_benchmarks = Dir.glob("#{path}/**/*.yaml").reject { |file_path| File.directory? file_path }
 cleaned_benchmarks_array = []
 
-## Remove unwanted benchmarks
+# Remove unwanted benchmarks
 ARGV.each do |a|
   if a.include? "--no-"
-    remove_service = a.gsub("--no-", '')
-    puts "Not testing #{remove_service}"
+    cut_array = []
+    remove_service = a.gsub("--no-", "").downcase
+    puts "Not including #{remove_service}"
 
     array_of_all_benchmarks.each do |benchmark|
       if benchmark.include? remove_service
         puts "x #{benchmark}"
       else
-        cleaned_benchmarks_array.push benchmark
+        cut_array.push benchmark      #array_of_all_benchmarks.delete(benchmark)
       end
     end
+
+    array_of_all_benchmarks = cut_array
   end
 end
 
-puts cleaned_benchmarks_array
+puts "Will include the following benchmarks:"
+puts array_of_all_benchmarks
 puts "-----"
-puts "Number of benchmarks found: #{cleaned_benchmarks_array.count}"
+puts "Number of benchmarks found: #{array_of_all_benchmarks.count}"
 
 # Create all_benchmarks.yaml file
 puts "Combining benchmarks in single YAML file..."
 all_benchmarks = ""
 
-cleaned_benchmarks_array.each do |benchmark|
+array_of_all_benchmarks.each do |benchmark|
   all_benchmarks << YAML.load_file(benchmark).to_yaml
 end
 
