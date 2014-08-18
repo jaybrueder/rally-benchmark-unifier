@@ -1,12 +1,12 @@
 # Rally Benchmark Unifier
 
-Because Rally does not yet have an option to run all benchmarks with a single command, we built Rally Reporter.
+Because OpenStack Rally does not yet have an option to run all benchmarks with a single command, I built Rally Reporter.
 
-It combines every single benchmark in the __
+It combines every single benchmark in the __rally/doc/samples/tasks/scenarios/__ folder into one benchmark file.
 
-## Hot to use it
+## How to use it
 
-Clone this repo next to your __rally__ folder. Your folder structure should like like this
+Clone this repo next to your __rally__ folder. Your folder structure should look like this
 
 * rally
 * rally_benchmark_unifier
@@ -34,4 +34,12 @@ Use this UUID in the following command to generate a HTML report from the benchm
 
 ```shell
 rally task plot2html ba04048e-b503-4b24-bd7d-0d81b64325ef --out reports/all_benchmarks.html
+```
+
+## Exclude services from benchmarks
+
+To exclude certain services from the benchmark run the __rally_benchmark_unifier__ like this:
+
+```shell
+ruby rally_benchmark_unifier.rb --no-ceilometer --no-vm
 ```
