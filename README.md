@@ -41,5 +41,5 @@ rally task plot2html ba04048e-b503-4b24-bd7d-0d81b64325ef --out reports/all_benc
 To exclude certain services from the benchmark run the __rally_benchmark_unifier__ like this:
 
 ```shell
-ruby rally_benchmark_unifier.rb --no-ceilometer --no-vm
+ruby rally_benchmark_unifier.rb --no-vm --no-tempest --no-sahara --no-heat --no-ceilometer
 ```

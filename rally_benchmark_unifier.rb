@@ -18,7 +18,7 @@ ARGV.each do |a|
     puts "Not including #{remove_service}"
 
     array_of_all_benchmarks.each do |benchmark|
-      if benchmark.include? remove_service
+      if benchmark.include? "scenarios/#{remove_service}"
         puts "x #{benchmark}"
       else
         cut_array.push benchmark      #array_of_all_benchmarks.delete(benchmark)
